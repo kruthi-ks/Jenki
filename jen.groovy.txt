@@ -1,0 +1,15 @@
+node {
+	
+
+	stage 'Create'
+	        withCredentials([string(credentialsId: 'kk_itg_pass', variable: 'PW1')]) {
+		sh 'curl -H "Authorization: token '${PW1}'" --data "{\"name\": \"Git_demo1\",\"auto_init\": true, \"private\": false,\"gitignore_template\": \"nanoc\"}" -X POST --url https://github-itg.houston.softwaregrp.net/api/v3/user/repos'
+		}
+	stage 'Clone'
+    sh 'git clone https://github-itg.houston.softwaregrp.net/Kruthi-Ks/Git_demo1.git'
+    sh 'cd Git_demo1'
+
+	stage 'TestComplete'
+		sh 'echo Test successfull.'
+
+}
